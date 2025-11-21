@@ -1,0 +1,71 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 3rem;
+  background: white;
+  border-bottom: 1px solid #eee;
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 20px;
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: #4430d8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      color: white;
+    }
+  }
+
+  .menu {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+
+    a {
+      font-weight: 500;
+      text-decoration: none;
+      color: #333;
+      transition: 0.3s;
+
+      &:hover {
+        color: #4430d8;
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    gap: 1rem;
+
+    .signin {
+      text-decoration: none;
+      color: #4430d8;
+      font-weight: 500;
+    }
+
+    .signup {
+      background: #4430d8;
+      color: white;
+      padding: 0.6rem 1.4rem;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+  }
+}
+
