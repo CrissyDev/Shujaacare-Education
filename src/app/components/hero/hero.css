@@ -1,36 +1,68 @@
 .hero {
   text-align: center;
-  padding: 100px 40px;
-  background: #4430d8;
+  padding: 120px 40px;
+  background: url("assets/pexels-daniel-dan-47825192-7542754.jpg") center/cover no-repeat;
+  position: relative;
   color: white;
-
-  h1 {
-    font-size: 4rem;
-    font-weight: 700;
-    line-height: 1.2;
-  }
-
-  p {
-    margin: 20px auto;
-    max-width: 600px;
-    font-size: 1.2rem;
-  }
-
-  .cta-btn {
-    margin-top: 30px;
-    padding: 15px 35px;
-    background: white;
-    color: #4430d8;
-    font-size: 1.1rem;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: 0.3s;
-
-    &:hover {
-      opacity: 0.9;
-      transform: translateY(-2px);
-    }
-  }
 }
 
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 0;
+}
+
+.hero h1,
+.hero p,
+.hero .cta-btn {
+  position: relative;
+  z-index: 1;
+}
+
+.hero h1 {
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.hero p {
+  margin: 20px auto;
+  max-width: 600px;
+  font-size: 1.2rem;
+}
+
+.hero .cta-btn {
+  margin-top: 30px;
+  padding: 15px 35px;
+  background: white;
+  color: #4430d8;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.hero .cta-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 80px 20px;
+  }
+
+  .hero h1 {
+    font-size: 2.4rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+}

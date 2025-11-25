@@ -4,68 +4,104 @@
   align-items: center;
   padding: 1.2rem 3rem;
   background: white;
-  border-bottom: 1px solid #eee;
+  border-bottom: 2px solid #6A0DAD;
+}
 
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 600;
-    font-size: 20px;
+/* ---- LOGO AREA ---- */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 22px;
+  color: #6A0DAD;
+}
 
-    .logo-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
-      background: #4430d8;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 18px;
-      color: white;
-    }
+/* Image Logo */
+.logo-img {
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Optional icon block if no logo used */
+.logo-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 10px;
+  background: #6A0DAD;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: white;
+}
+
+/* ---- NAV LINKS ---- */
+.menu {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.menu a {
+  font-weight: 500;
+  text-decoration: none;
+  color: #444;
+  transition: 0.3s;
+}
+
+.menu a:hover {
+  color: #6A0DAD;
+}
+
+/* ---- ACTION BUTTONS ---- */
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Sign in link */
+.signin {
+  text-decoration: none;
+  font-weight: 500;
+  color: #6A0DAD;
+  transition: 0.3s;
+}
+
+.signin:hover {
+  opacity: 0.7;
+}
+
+/* Sign up button */
+.signup {
+  background: #6A0DAD;
+  color: white;
+  padding: 0.6rem 1.4rem;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 600;
+}
+
+.signup:hover {
+  background: #5A0A9A;
+  transform: translateY(-2px);
+}
+
+/* ---- MOBILE RESPONSIVE ---- */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 1.2rem;
+    padding: 1.5rem;
   }
 
   .menu {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-
-    a {
-      font-weight: 500;
-      text-decoration: none;
-      color: #333;
-      transition: 0.3s;
-
-      &:hover {
-        color: #4430d8;
-      }
-    }
-  }
-
-  .actions {
-    display: flex;
+    flex-direction: column;
     gap: 1rem;
-
-    .signin {
-      text-decoration: none;
-      color: #4430d8;
-      font-weight: 500;
-    }
-
-    .signup {
-      background: #4430d8;
-      color: white;
-      padding: 0.6rem 1.4rem;
-      border-radius: 12px;
-      border: none;
-      cursor: pointer;
-      transition: 0.3s;
-
-      &:hover {
-        opacity: 0.9;
-      }
-    }
+    text-align: center;
   }
 }
-
