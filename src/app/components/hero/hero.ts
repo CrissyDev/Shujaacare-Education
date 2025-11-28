@@ -13,6 +13,6 @@ export class HeroComponent {
   constructor(private router: Router) {}
 
   goToSignup() {
-    this.router.navigate(['/sign-in']); 
+    this.router.navigate(['/sign-up']); 
   }
 }
