@@ -1,4 +1,5 @@
-<section class="hero">
+<section class="hero" [style.background-image]="'url(' + backgroundImage + ')'">
+  <div class="hero-content">
   <h1>Empowering Women Through<br>Knowledge</h1>
 
   <p>
@@ -6,5 +7,6 @@
     and community empowerment across Africa.
   </p>
 
-  <button class="cta-btn">Get Started Today</button>
+  <button class="cta-btn" (click)="goToSignup()">Get Started Today</button>
+</div>
 </section>

@@ -1,68 +1,76 @@
 .hero {
-  text-align: center;
-  padding: 120px 40px;
-  background: url("assets/pexels-daniel-dan-47825192-7542754.jpg") center/cover no-repeat;
   position: relative;
+  text-align: center;
+  padding: 140px 40px;
   color: white;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
+/* Darker overlay for better readability */
 .hero::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.45);
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55); /* increased darkness */
+  backdrop-filter: brightness(0.8);
   z-index: 0;
+  pointer-events: none;
+
 }
 
-.hero h1,
-.hero p,
-.hero .cta-btn {
+.hero-content {
   position: relative;
   z-index: 1;
 }
 
+/* Text enhancement */
 .hero h1 {
   font-size: 4rem;
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.2;
+  text-shadow: 0 4px 10px rgba(0,0,0,0.7);
 }
 
 .hero p {
   margin: 20px auto;
-  max-width: 600px;
-  font-size: 1.2rem;
+  max-width: 650px;
+  font-size: 1.25rem;
+  opacity: 0.95;
 }
 
+/* Modern CTA Button */
 .hero .cta-btn {
-  margin-top: 30px;
-  padding: 15px 35px;
-  background: white;
+  margin-top: 35px;
+  padding: 15px 45px;
+  background: #ffffff;
   color: #4430d8;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
   border: none;
-  border-radius: 12px;
+  border-radius: 50px;
   cursor: pointer;
   transition: 0.3s;
+  box-shadow: 0 6px 20px rgba(255,255,255,0.2);
 }
 
 .hero .cta-btn:hover {
-  opacity: 0.9;
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(255,255,255,0.4);
 }
 
+/* Mobile responsiveness */
 @media (max-width: 768px) {
   .hero {
-    padding: 80px 20px;
+    padding: 90px 20px;
   }
 
   .hero h1 {
-    font-size: 2.4rem;
+    font-size: 2.6rem;
   }
 
   .hero p {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 }
