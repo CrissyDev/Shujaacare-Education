@@ -5,13 +5,13 @@
   </div>
 
   <ul class="menu">
-    <li><a href="#">About</a></li>
-    <li><a href="#">Mission</a></li>
-    <li><a href="#">Vision</a></li>
+    <li><a (click)="scrollToSection('about')">About</a></li>
+    <li><a (click)="scrollToSection('mission')">Mission</a></li>
+    <li><a (click)="scrollToSection('vision')">Vision</a></li>
   </ul>
 
   <div class="actions">
-    <a class="signin" href="#">Sign In</a>
-    <button class="signup">Sign Up</button>
+    <button class="signin" (click)="goToSignIn()">Sign In</button>
+    <button class="signup" (click)="goToSignUp()">Sign Up</button>
   </div>
 </nav>
