@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-hero',
+  standalone: true, 
   templateUrl: './hero.html',
   styleUrl: './hero.css',
 })
