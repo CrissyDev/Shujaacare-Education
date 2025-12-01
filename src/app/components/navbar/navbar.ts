@@ -1,22 +1,30 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './navbar.html',
-  styleUrl: './navbar.css',
+  styleUrls: ['./navbar.css'],
 })
-export class Navbar {
-  
+export class NavbarComponent {
+
   constructor(private router: Router) {}
 
   scrollToSection(sectionId: string) {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
+      // Section exists, scroll smoothly
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      // Section not found, navigate to Home first
+      this.router.navigate(['/']).then(() => {
+        setTimeout(() => {
+          const el = document.getElementById(sectionId);
+          el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50);
       });
     }
   }
