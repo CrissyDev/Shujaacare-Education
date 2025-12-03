@@ -1,16 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Router } from 'express';
+import { Router, RouterModule } from '@angular/router';
 import { CoreValuesComponent } from '../../core-values/core-values';
 
 @Component({
   selector: 'app-vision',
-  imports: [CommonModule, CoreValuesComponent],
+  standalone: true,
+  imports: [CommonModule, CoreValuesComponent, RouterModule],
   templateUrl: './vision.html',
-  styleUrl: './vision.css',
+  styleUrls: ['./vision.css'],
 })
 export class Vision {
-
-   constructor(private router: Router) {}
-
+  constructor(private router: Router) {}
 }

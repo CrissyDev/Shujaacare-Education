@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-sign-in',
   imports: [],
   templateUrl: './sign-in.html',
-  styleUrl: './sign-in.css',
+  styleUrls: ['./sign-in.css'],
 })
 export class SignIn {
 
