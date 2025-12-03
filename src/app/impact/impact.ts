@@ -1,10 +1,12 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
+import { Ready } from '../ready/ready';
 
 @Component({
   selector: 'app-impact',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule, Ready],
   templateUrl: './impact.html',
   styleUrls: ['./impact.css'],
 })
