@@ -1,0 +1,92 @@
+.signup-wrapper {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background: #f8f4f2;
+  padding: 40px;
+  gap: 40px;
+}
+
+/* Left Box */
+.form-section {
+  background: #efe7e6;
+  flex: 1;
+  border-radius: 40px;
+  padding: 50px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.form-section h1 {
+  margin: 0;
+  font-size: 42px;
+  font-weight: 700;
+  color: #4a1915;
+}
+
+.sub {
+  margin: 10px 0 35px;
+  color: #6b4b46;
+}
+
+form label {
+  font-size: 14px;
+  color: #6a5550;
+  margin-top: 12px;
+  display: block;
+}
+
+form input {
+  width: 100%;
+  margin-top: 6px;
+  padding: 12px;
+  border: none;
+  border-radius: 15px;
+  background: white;
+  font-size: 15px;
+}
+
+/* Checkbox Section */
+.agreement {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  gap: 10px;
+}
+
+.agreement input {
+  width: 18px;
+  height: 18px;
+}
+
+.agreement a {
+  color: #4a1915;
+  text-decoration: underline;
+}
+
+/* Button */
+.signup-btn {
+  background: #4a1915;
+  color: white;
+  border: none;
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 30px;
+  width: 160px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* Right Image Section */
+.image-section {
+  flex: 1;
+  border-radius: 40px;
+  overflow: hidden;
+}
+
+.image-section img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
