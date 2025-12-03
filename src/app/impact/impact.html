@@ -1,1 +1,61 @@
-<p>impact works!</p>
+<section class="impact-section">
+  <div class="impact-container">
+    <h2 class="impact-title">Our Impact</h2>
+
+    <div class="impact-stats">
+      <div class="impact-item">
+        <h3 class="impact-number" data-target="0">0</h3>
+        <p class="impact-label">Learning Modules</p>
+      </div>
+
+      <div class="impact-item">
+        <h3 class="impact-number" data-target="0">0</h3>
+        <p class="impact-label">Active Learners</p>
+      </div>
+
+      <div class="impact-item">
+        <h3 class="impact-number" data-target="0">0</h3>
+        <p class="impact-label">Tokens Earned</p>
+      </div>
+
+      <div class="impact-item">
+        <h3 class="impact-number" data-target="15">0</h3>
+        <p class="impact-label">Lives Impacted</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Count-up animation
+  const counters = document.querySelectorAll(".impact-number");
+  const speed = 100; 
+
+  const animateCounters = () => {
+    counters.forEach(counter => {
+      const updateCount = () => {
+        const target = +counter.getAttribute("data-target");
+        const current = +counter.innerText;
+        const increment = target / speed;
+
+        if (current < target) {
+          counter.innerText = Math.ceil(current + increment);
+          setTimeout(updateCount, 30);
+        } else {
+          counter.innerText = target;
+        }
+      };
+
+      updateCount();
+    });
+  };
+
+  const observer = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      animateCounters();
+      observer.disconnect();
+    }
+  });
+
+  observer.observe(document.querySelector(".impact-section"));
+</script>
