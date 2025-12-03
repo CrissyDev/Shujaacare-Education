@@ -1,0 +1,61 @@
+.core-values-section {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.section-title {
+  font-size: 42px;
+  font-weight: 800;
+  margin-bottom: 50px;
+  color: black;
+}
+
+.values-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.value-card {
+  background: #faf7ff; 
+  border-radius: 20px;
+  padding: 40px 30px;
+  width: 360px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 1px solid #e5dafc;
+}
+
+.value-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0px 10px 35px rgba(80, 0, 150, 0.15);
+  border-color: #c7a3ff;
+}
+
+.icon-circle {
+  width: 80px;
+  height: 80px;
+  background: #6f2cff;        
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px auto;
+  font-size: 32px;
+}
+
+.value-card h3 {
+  margin-top: 10px;
+  margin-bottom: 15px;
+  font-size: 24px;
+  font-weight: 700;
+  color: black;
+}
+
+.value-card p {
+  color: #5d4e7f; 
+  font-size: 16px;
+  line-height: 1.7;
+}
