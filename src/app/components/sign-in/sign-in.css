@@ -1,138 +1,131 @@
-/* Background */
-.auth-container {
-  height: 100vh;
+.signin-wrapper {
   width: 100%;
-  background: url("assets/bg.jpg") no-repeat center center/cover;
+  height: 100vh;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  overflow: hidden;
 }
 
-/* Card */
-.auth-card {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  padding: 40px;
+.background-image {
+  position: absolute;
+  inset: 0;
+  background: url('/assets/Cancer cell.webp') no-repeat center center/cover;
+  filter: brightness(0.9);
+  z-index: -1;
+}
+
+.signin-card {
   width: 380px;
-  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.93);
+  padding: 40px 30px 32px;
+  border-radius: 22px;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.2);
   text-align: center;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  backdrop-filter: blur(5px);
 }
 
-/* Icon */
-.auth-icon {
-  width: 65px;
-  height: 65px;
-  background: #f4f1ff;
-  border-radius: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto 20px;
-  font-size: 28px;
-  color: #7a3cff;
-}
-
-/* Text */
-h2 {
-  margin: 0;
-  font-size: 22px;
-  font-weight: 700;
-  color: #333;
+.logo-container img {
+  width: 80px;         
+  height: auto;
+  margin-bottom: 20px;
 }
 
 .subtitle {
-  margin: 8px 0 24px;
-  font-size: 14px;
   color: #666;
+  font-size: 14px;
+  margin-bottom: 25px;
 }
 
-/* Inputs */
 .input-group {
-  background: #f3f1ff;
-  padding: 12px 15px;
-  border-radius: 12px;
-  margin-bottom: 15px;
-  display: flex;
-  align-items: center;
-}
-
-.input-group input {
-  width: 100%;
-  border: none;
-  outline: none;
-  background: none;
-  font-size: 14px;
-}
-
-.password-group i {
-  color: #666;
-  cursor: pointer;
-}
-
-/* Forgot text */
-.forgot {
-  text-align: right;
-  font-size: 13px;
+  position: relative;
   margin-bottom: 18px;
 }
 
-.forgot a {
-  color: #7a3cff;
-  text-decoration: none;
+input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  box-sizing: border-box;
 }
 
-/* Button */
-.btn-primary {
-  background: #7a3cff;
-  color: white;
-  padding: 12px;
-  width: 100%;
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
   border: none;
+  background: transparent;
+  padding: 0;
+  font-size: 16px;
+}
+
+.main-btn {
+  width: 100%;
+  padding: 14px;
   border-radius: 12px;
+  border: none;
+  background: maroon;
+  color: white;
   font-size: 16px;
   cursor: pointer;
-  transition: 0.2s;
+  margin-top: 10px;
 }
 
-.btn-primary:hover {
-  background: #6a2ae0;
+.main-btn:disabled {
+  background: #999;
+  cursor: not-allowed;
 }
 
-/* Divider */
+.forgot {
+  display: block;
+  text-align: right;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: maroon;
+  cursor: pointer;
+}
+
 .divider {
-  margin: 20px 0;
-  font-size: 14px;
-  color: #666;
+  margin: 25px 0 15px;
+  font-size: 13px;
+  color: #888;
+}
+
+.social-row {
   display: flex;
   justify-content: center;
-  align-items: center;
+  gap: 12px;
 }
 
-.divider span {
-  background: white;
-  padding: 0 10px;
-}
-
-/* Social buttons */
-.social-login {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
-
-.social-login button {
-  width: 50px;
+.social-btn {
+  width: 55px;
   height: 45px;
   border-radius: 12px;
   border: none;
   background: #fff;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-  cursor: pointer;
   font-size: 20px;
+  cursor: pointer;
 }
 
-.google { color: #db4437; }
-.facebook { color: #1877f2; }
-.apple { color: #000; }
+.social-btn.google {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  color: #db4437; /* Google red */
+}
+
+.social-btn.facebook {
+  background-color: #1877f2; /* Facebook blue */
+  color: #fff;
+}
+
+@media (max-width: 480px) {
+  .signin-card {
+    width: 90%;
+    padding: 30px 20px;
+  }
+}

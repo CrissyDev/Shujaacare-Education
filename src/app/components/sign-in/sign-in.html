@@ -1,41 +1,51 @@
-<div class="auth-container">
-  <div class="auth-card">
+<div class="signin-wrapper">
+  <div class="background-image"></div>
 
-    <div class="auth-icon">
-      <i class="fa-solid fa-right-to-bracket"></i>
+  <div class="signin-card">
+    <div class="logo-container">
+      <img src="assets/shujaacare logo.jpeg" alt="Company Logo" />
     </div>
 
     <h2>Sign in with email</h2>
     <p class="subtitle">
-      Make a new doc to bring your words, data,<br />
-      and teams together. For free
+      Welcome Back to ShujaaCare
     </p>
 
-    <form>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
       <div class="input-group">
-        <input type="email" placeholder="Email" />
+        <input type="email" placeholder="Email" formControlName="email" />
       </div>
 
-      <div class="input-group password-group">
-        <input type="password" placeholder="Password" />
-        <i class="fa-solid fa-eye-slash"></i>
+      <div class="input-group">
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          placeholder="Password"
+          formControlName="password"
+        />
+        <button
+          type="button"
+          class="eye-icon"
+          (click)="togglePasswordVisibility()"
+          [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+        >
+          {{ showPassword ? '🙈' : '👁️' }}
+        </button>
       </div>
 
-      <div class="forgot">
-        <a href="#">Forgot password?</a>
-      </div>
+      <a class="forgot">Forgot password?</a>
 
-      <button type="submit" class="btn-primary">Get Started</button>
+      <button type="submit" class="main-btn" [disabled]="form.invalid">
+        Get Started
+      </button>
+
     </form>
 
-    <div class="divider">
-      <span>Or sign in with</span>
-    </div>
+    <div class="divider">Or sign in with</div>
 
-    <div class="social-login">
-      <button class="google"><i class="fa-brands fa-google"></i></button>
-      <button class="facebook"><i class="fa-brands fa-facebook"></i></button>
-      <button class="apple"><i class="fa-brands fa-apple"></i></button>
+    <div class="social-row">
+      <button type="button" class="social-btn google">G</button>
+      <button type="button" class="social-btn facebook">f</button>
     </div>
 
   </div>
