@@ -5,6 +5,7 @@ import { Footer } from '../footer/footer';
 
 @Component({
   selector: 'app-ready',
+  standalone: true,
   imports: [CommonModule, RouterModule, Footer],
   templateUrl: './ready.html',
   styleUrl: './ready.css',

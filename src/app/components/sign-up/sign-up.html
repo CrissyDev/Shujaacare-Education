@@ -5,29 +5,130 @@
     <h1>Sign up</h1>
     <p class="sub">Welcome To ShujaaCare</p>
 
-    <form>
-      <label>Enter your phone number or e-mail:</label>
-      <input type="email" placeholder="example@gmail.com" />
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Your name:</label>
+        <input
+          type="text"
+          placeholder="Jane Doe"
+          formControlName="displayName"
+          [class.error]="form.get('displayName')?.invalid && form.get('displayName')?.touched"
+        />
+        <div
+          class="error-message"
+          *ngIf="form.get('displayName')?.invalid && form.get('displayName')?.touched"
+        >
+          <span *ngIf="form.get('displayName')?.errors?.['required']">Name is required</span>
+          <span *ngIf="form.get('displayName')?.errors?.['minlength']">Name must be at least 2 characters</span>
+        </div>
+      </div>
 
-      <label>Create a password:</label>
-      <input type="password" placeholder="******" />
+      <div class="form-group">
+        <label>Enter your e-mail:</label>
+        <input
+          type="email"
+          placeholder="example@gmail.com"
+          formControlName="email"
+          [class.error]="form.get('email')?.invalid && form.get('email')?.touched"
+        />
+        <div
+          class="error-message"
+          *ngIf="form.get('email')?.invalid && form.get('email')?.touched"
+        >
+          <span *ngIf="form.get('email')?.errors?.['required']">Email is required</span>
+          <span *ngIf="form.get('email')?.errors?.['email']">Please enter a valid email</span>
+        </div>
+      </div>
 
-      <label>Repeat your password:</label>
-      <input type="password" placeholder="******" />
+      <div class="form-group">
+        <label>Create a password:</label>
+        <div class="password-input-wrapper">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            placeholder="******"
+            formControlName="password"
+            [class.error]="form.get('password')?.invalid && form.get('password')?.touched"
+          />
+          <button
+            type="button"
+            class="eye-icon"
+            (click)="togglePasswordVisibility()"
+            [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+          >
+            {{ showPassword ? '🙈' : '👁️' }}
+          </button>
+        </div>
+        <div
+          class="error-message"
+          *ngIf="form.get('password')?.invalid && form.get('password')?.touched"
+        >
+          <span *ngIf="form.get('password')?.errors?.['required']">Password is required</span>
+          <span *ngIf="form.get('password')?.errors?.['minlength']"
+            >Password must be at least 6 characters</span
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Repeat your password:</label>
+        <div class="password-input-wrapper">
+          <input
+            [type]="showConfirmPassword ? 'text' : 'password'"
+            placeholder="******"
+            formControlName="confirmPassword"
+            [class.error]="form.get('confirmPassword')?.invalid && form.get('confirmPassword')?.touched"
+          />
+          <button
+            type="button"
+            class="eye-icon"
+            (click)="toggleConfirmPasswordVisibility()"
+            [attr.aria-label]="showConfirmPassword ? 'Hide password' : 'Show password'"
+          >
+            {{ showConfirmPassword ? '🙈' : '👁️' }}
+          </button>
+        </div>
+        <div
+          class="error-message"
+          *ngIf="form.get('confirmPassword')?.invalid && form.get('confirmPassword')?.touched"
+        >
+          <span *ngIf="form.get('confirmPassword')?.errors?.['required']"
+            >Please confirm your password</span
+          >
+          <span *ngIf="form.get('confirmPassword')?.errors?.['passwordMismatch']"
+            >Passwords do not match</span
+          >
+        </div>
+      </div>
 
       <div class="agreement">
-        <input type="checkbox" id="agree">
+        <input type="checkbox" id="agree" formControlName="agreeToTerms" />
         <label for="agree">
           I agree to the <a href="#">Terms</a> and <a href="#">Privacy Policy</a>
         </label>
       </div>
+      <div
+        class="error-message"
+        *ngIf="form.get('agreeToTerms')?.invalid && form.get('agreeToTerms')?.touched"
+      >
+        You must agree to the terms and conditions
+      </div>
 
-      <button type="submit" class="signup-btn">Sign up</button>
+      <div class="success-message" *ngIf="successMessage" style="margin-top: 10px">
+        {{ successMessage }}
+      </div>
+      <div class="error-message" *ngIf="errorMessage" style="margin-top: 10px">
+        {{ errorMessage }}
+      </div>
+
+      <button type="submit" class="signup-btn" [disabled]="form.invalid || isLoading">
+        <span *ngIf="!isLoading">Sign up</span>
+        <span *ngIf="isLoading">Signing up...</span>
+      </button>
     </form>
   </div>
 
   <div class="image-section">
-    <img src="assets/Cancer cell.webp" alt="spa image">
+    <img src="assets/Cancer cell.webp" alt="spa image" />
   </div>
 
 </div>

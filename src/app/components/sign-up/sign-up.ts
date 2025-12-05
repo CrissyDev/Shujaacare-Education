@@ -1,11 +1,88 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-sign-up',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './sign-up.html',
   styleUrls: ['./sign-up.css'],
 })
 export class SignUp {
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  private fb = inject(FormBuilder);
 
+  form: FormGroup;
+  showPassword = false;
+  showConfirmPassword = false;
+  isLoading = false;
+  errorMessage = '';
+  successMessage = '';
+
+  constructor() {
+    this.form = this.fb.group(
+      {
+        displayName: ['', [Validators.required, Validators.minLength(2)]],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', [Validators.required]],
+        agreeToTerms: [false, Validators.requiredTrue],
+      },
+      {
+        validators: this.passwordMatchValidator,
+      }
+    );
+  }
+
+  passwordMatchValidator(form: FormGroup) {
+    const password = form.get('password');
+    const confirmPassword = form.get('confirmPassword');
+    if (password && confirmPassword && password.value !== confirmPassword.value) {
+      confirmPassword.setErrors({ passwordMismatch: true });
+      return { passwordMismatch: true };
+    }
+    return null;
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleConfirmPasswordVisibility() {
+    this.showConfirmPassword = !this.showConfirmPassword;
+  }
+
+  async onSubmit() {
+    if (this.form.invalid) {
+      this.markFormGroupTouched(this.form);
+      return;
+    }
+
+    this.isLoading = true;
+    this.errorMessage = '';
+    this.successMessage = '';
+
+    try {
+      const { email, password, displayName } = this.form.value;
+      await this.authService.signUp(email, password, { displayName });
+      this.successMessage = 'Account created successfully!';
+      // Redirect to dashboard after successful sign up
+      this.router.navigate(['/dashboard']);
+    } catch (error: any) {
+      this.errorMessage = error.message || 'An error occurred during sign up';
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  private markFormGroupTouched(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach((key) => {
+      const control = formGroup.get(key);
+      control?.markAsTouched();
+    });
+  }
 }

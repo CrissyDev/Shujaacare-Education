@@ -14,7 +14,19 @@
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
       <div class="input-group">
-        <input type="email" placeholder="Email" formControlName="email" />
+        <input
+          type="email"
+          placeholder="Email"
+          formControlName="email"
+          [class.error]="form.get('email')?.invalid && form.get('email')?.touched"
+        />
+        <div
+          class="error-message"
+          *ngIf="form.get('email')?.invalid && form.get('email')?.touched"
+        >
+          <span *ngIf="form.get('email')?.errors?.['required']">Email is required</span>
+          <span *ngIf="form.get('email')?.errors?.['email']">Please enter a valid email</span>
+        </div>
       </div>
 
       <div class="input-group">
@@ -22,6 +34,7 @@
           [type]="showPassword ? 'text' : 'password'"
           placeholder="Password"
           formControlName="password"
+          [class.error]="form.get('password')?.invalid && form.get('password')?.touched"
         />
         <button
           type="button"
@@ -31,12 +44,26 @@
         >
           {{ showPassword ? '🙈' : '👁️' }}
         </button>
+        <div
+          class="error-message"
+          *ngIf="form.get('password')?.invalid && form.get('password')?.touched"
+        >
+          Password is required
+        </div>
       </div>
 
       <a class="forgot">Forgot password?</a>
 
-      <button type="submit" class="main-btn" [disabled]="form.invalid">
-        Get Started
+    <div class="success-message" *ngIf="successMessage" style="margin-top: 10px; margin-bottom: 10px">
+      {{ successMessage }}
+    </div>
+      <div class="error-message" *ngIf="errorMessage" style="margin-top: 10px; margin-bottom: 10px">
+        {{ errorMessage }}
+      </div>
+
+      <button type="submit" class="main-btn" [disabled]="form.invalid || isLoading">
+        <span *ngIf="!isLoading">Get Started</span>
+        <span *ngIf="isLoading">Signing in...</span>
       </button>
 
     </form>

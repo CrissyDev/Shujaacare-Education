@@ -46,6 +46,50 @@ form input {
   font-size: 15px;
 }
 
+form input.error {
+  border: 2px solid #dc3545;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.password-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-input-wrapper input {
+  padding-right: 40px;
+}
+
+.password-input-wrapper .eye-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-size: 16px;
+  margin-top: 0;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+}
+
+.success-message {
+  color: #0f8a2c;
+  font-size: 13px;
+  margin-top: 6px;
+  display: block;
+}
+
 .agreement {
   display: flex;
   align-items: center;
