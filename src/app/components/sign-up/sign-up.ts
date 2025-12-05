@@ -71,7 +71,7 @@ export class SignUp {
       await this.authService.signUp(email, password, { displayName });
       this.successMessage = 'Account created successfully!';
       // Redirect to dashboard after successful sign up
-      this.router.navigate(['/dashboard']);
+      await this.router.navigate(['/dashboard']);
     } catch (error: any) {
       this.errorMessage = error.message || 'An error occurred during sign up';
     } finally {
