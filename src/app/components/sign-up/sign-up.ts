@@ -41,10 +41,13 @@ export class SignUp {
   passwordMatchValidator(form: FormGroup) {
     const password = form.get('password');
     const confirmPassword = form.get('confirmPassword');
+
     if (password && confirmPassword && password.value !== confirmPassword.value) {
       confirmPassword.setErrors({ passwordMismatch: true });
-      return { passwordMismatch: true };
+    } else {
+      confirmPassword?.setErrors(null);
     }
+
     return null;
   }
 
@@ -57,32 +60,32 @@ export class SignUp {
   }
 
   async onSubmit() {
-    if (this.form.invalid) {
-      this.markFormGroupTouched(this.form);
-      return;
-    }
+    this.markFormGroupTouched(this.form);
+
+    if (this.form.invalid) return;
 
     this.isLoading = true;
     this.errorMessage = '';
     this.successMessage = '';
 
     try {
-      const { email, password, displayName } = this.form.value;
+      const { displayName, email, password } = this.form.value;
+
       await this.authService.signUp(email, password, { displayName });
-      this.successMessage = 'Account created successfully!';
-      // Redirect to dashboard after successful sign up
+
+      this.successMessage = 'Account created successfully! Redirecting...';
+
       await this.router.navigate(['/dashboard']);
     } catch (error: any) {
-      this.errorMessage = error.message || 'An error occurred during sign up';
+      this.errorMessage = error?.message || 'An error occurred during sign-up';
     } finally {
       this.isLoading = false;
     }
   }
 
   private markFormGroupTouched(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach((key) => {
-      const control = formGroup.get(key);
-      control?.markAsTouched();
+    Object.values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
     });
   }
 }

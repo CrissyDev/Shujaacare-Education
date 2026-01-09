@@ -7,9 +7,10 @@ import { AuthService, LearningProgress, UserData } from '../services/auth.servic
   selector: 'app-dashboard',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css'],
+  templateUrl: './dashboard.html',
+  styleUrls: ['./dashboard.css'],
 })
+
 export class DashboardComponent implements OnInit {
   private authService = inject(AuthService);
   private router = inject(Router);
