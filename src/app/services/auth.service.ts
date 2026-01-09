@@ -34,15 +34,11 @@ export interface UserData {
 export class AuthService {
   private router = inject(Router);
 
-  /**
-   * Sign up a new user with email and password
-   */
   async signUp(email: string, password: string, userData?: Partial<UserData>): Promise<UserCredential> {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Store additional user data in Firestore
       const userDoc: UserData = {
         uid: user.uid,
         email: user.email || email,
@@ -61,9 +57,6 @@ export class AuthService {
     }
   }
 
-  /**
-   * Sign in an existing user with email and password
-   */
   async signIn(email: string, password: string): Promise<UserCredential> {
     try {
       return await signInWithEmailAndPassword(auth, email, password);
@@ -72,9 +65,6 @@ export class AuthService {
     }
   }
 
-  /**
-   * Sign out the current user
-   */
   async signOut(): Promise<void> {
     try {
       await signOut(auth);
@@ -84,16 +74,10 @@ export class AuthService {
     }
   }
 
-  /**
-   * Get current authenticated user
-   */
   getCurrentUser(): User | null {
     return auth.currentUser;
   }
 
-  /**
-   * Get user data from Firestore
-   */
   async getUserData(uid: string): Promise<UserData | null> {
     try {
       const userDoc = await getDoc(doc(db, 'users', uid));
@@ -107,9 +91,6 @@ export class AuthService {
     }
   }
 
-  /**
-   * Update user data in Firestore
-   */
   async updateUserData(uid: string, data: Partial<UserData>): Promise<void> {
     try {
       await setDoc(
@@ -126,9 +107,6 @@ export class AuthService {
     }
   }
 
-  /**
-   * Handle Firebase authentication errors and return user-friendly messages
-   */
   private handleAuthError(error: any): Error {
     let errorMessage = 'An error occurred during authentication';
 
