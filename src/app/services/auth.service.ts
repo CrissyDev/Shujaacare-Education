@@ -6,6 +6,7 @@ import {
   signOut,
   User,
   UserCredential,
+  onAuthStateChanged,
 } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../config/firebase.config';
@@ -34,10 +35,35 @@ export interface UserData {
 export class AuthService {
   private router = inject(Router);
 
-  async signUp(email: string, password: string, userData?: Partial<UserData>): Promise<UserCredential> {
+  private waitForAuthReady(): Promise<User> {
+    return new Promise((resolve, reject) => {
+      const unsubscribe = onAuthStateChanged(auth, user => {
+        if (user) {
+          unsubscribe();
+          resolve(user);
+        }
+      });
+
+      setTimeout(() => {
+        unsubscribe();
+        reject(new Error('Authentication timeout'));
+      }, 3000);
+    });
+  }
+
+  async signUp(
+    email: string,
+    password: string,
+    userData?: Partial<UserData>
+  ): Promise<UserCredential> {
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      const user = await this.waitForAuthReady();
 
       const userDoc: UserData = {
         uid: user.uid,
@@ -59,7 +85,16 @@ export class AuthService {
 
   async signIn(email: string, password: string): Promise<UserCredential> {
     try {
-      return await signInWithEmailAndPassword(auth, email, password);
+      const credential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+    
+      await this.waitForAuthReady();
+
+      return credential;
     } catch (error: any) {
       throw this.handleAuthError(error);
     }
@@ -68,7 +103,7 @@ export class AuthService {
   async signOut(): Promise<void> {
     try {
       await signOut(auth);
-      this.router.navigate(['/']);
+      await this.router.navigate(['/']);
     } catch (error: any) {
       throw this.handleAuthError(error);
     }
@@ -81,10 +116,7 @@ export class AuthService {
   async getUserData(uid: string): Promise<UserData | null> {
     try {
       const userDoc = await getDoc(doc(db, 'users', uid));
-      if (userDoc.exists()) {
-        return userDoc.data() as UserData;
-      }
-      return null;
+      return userDoc.exists() ? (userDoc.data() as UserData) : null;
     } catch (error) {
       console.error('Error getting user data:', error);
       return null;
@@ -118,34 +150,33 @@ export class AuthService {
         errorMessage = 'Invalid email address. Please check and try again.';
         break;
       case 'auth/operation-not-allowed':
-        errorMessage = 'Email/password accounts are not enabled. Please contact support.';
+        errorMessage = 'Email/password accounts are not enabled.';
         break;
       case 'auth/weak-password':
-        errorMessage = 'Password is too weak. Please use at least 6 characters.';
+        errorMessage = 'Password must be at least 6 characters.';
         break;
       case 'auth/user-disabled':
-        errorMessage = 'This account has been disabled. Please contact support.';
+        errorMessage = 'This account has been disabled.';
         break;
       case 'auth/user-not-found':
-        errorMessage = 'No account found with this email. Please sign up first.';
+        errorMessage = 'No account found with this email.';
         break;
       case 'auth/wrong-password':
         errorMessage = 'Incorrect password. Please try again.';
         break;
       case 'auth/invalid-credential':
-        errorMessage = 'Invalid email or password. Please try again.';
+        errorMessage = 'Invalid email or password.';
         break;
       case 'auth/too-many-requests':
-        errorMessage = 'Too many failed attempts. Please try again later.';
+        errorMessage = 'Too many attempts. Please try again later.';
         break;
       case 'auth/network-request-failed':
-        errorMessage = 'Network error. Please check your internet connection.';
+        errorMessage = 'Network error. Check your internet connection.';
         break;
       default:
-        errorMessage = error.message || 'An unexpected error occurred';
+        errorMessage = error.message || errorMessage;
     }
 
     return new Error(errorMessage);
   }
 }
-

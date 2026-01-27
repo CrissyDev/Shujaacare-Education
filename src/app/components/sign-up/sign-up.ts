@@ -1,6 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
@@ -17,6 +23,7 @@ export class SignUp {
   private fb = inject(FormBuilder);
 
   form: FormGroup;
+
   showPassword = false;
   showConfirmPassword = false;
   isLoading = false;
@@ -38,14 +45,18 @@ export class SignUp {
     );
   }
 
-  passwordMatchValidator(form: FormGroup) {
-    const password = form.get('password');
-    const confirmPassword = form.get('confirmPassword');
+  passwordMatchValidator(control: AbstractControl) {
+    const password = control.get('password')?.value;
+    const confirmPasswordControl = control.get('confirmPassword');
 
-    if (password && confirmPassword && password.value !== confirmPassword.value) {
-      confirmPassword.setErrors({ passwordMismatch: true });
+    if (!confirmPasswordControl) return null;
+
+    if (password !== confirmPasswordControl.value) {
+      confirmPasswordControl.setErrors({ passwordMismatch: true });
     } else {
-      confirmPassword?.setErrors(null);
+      if (confirmPasswordControl.hasError('passwordMismatch')) {
+        confirmPasswordControl.setErrors(null);
+      }
     }
 
     return null;
@@ -62,7 +73,7 @@ export class SignUp {
   async onSubmit() {
     this.markFormGroupTouched(this.form);
 
-    if (this.form.invalid) return;
+    if (this.form.invalid || this.isLoading) return;
 
     this.isLoading = true;
     this.errorMessage = '';
@@ -75,9 +86,12 @@ export class SignUp {
 
       this.successMessage = 'Account created successfully! Redirecting...';
 
-      await this.router.navigate(['/dashboard']);
+      setTimeout(() => {
+        this.router.navigate(['/dashboard']);
+      }, 800);
     } catch (error: any) {
-      this.errorMessage = error?.message || 'An error occurred during sign-up';
+      this.errorMessage =
+        error?.message || 'An error occurred during sign-up';
     } finally {
       this.isLoading = false;
     }
