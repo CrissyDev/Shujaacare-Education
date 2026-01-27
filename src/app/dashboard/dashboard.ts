@@ -1,7 +1,12 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
-import { AuthService, LearningProgress, UserData } from '../services/auth.service';
+
+interface LearningProgress {
+  title: string;
+  completed: number;
+  total: number;
+  lastAccessed?: Date;
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -10,54 +15,45 @@ import { AuthService, LearningProgress, UserData } from '../services/auth.servic
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css'],
 })
-
 export class DashboardComponent implements OnInit {
-  private authService = inject(AuthService);
-  private router = inject(Router);
-
   loading = true;
   errorMessage = '';
-  userData: UserData | null = null;
+
+  displayName = 'Student';
+  points = 0;
+
   progress: LearningProgress[] = [];
 
-  async ngOnInit() {
-    const user = this.authService.getCurrentUser();
-    if (!user) {
-      this.router.navigate(['/sign-in']);
-      return;
-    }
+  ngOnInit(): void {
+    this.loadDashboard();
+  }
 
-    try {
-      const data = await this.authService.getUserData(user.uid);
-      if (data) {
-        this.userData = data;
-        this.progress =
-          data.learningProgress && data.learningProgress.length > 0
-            ? data.learningProgress
-            : this.getFallbackProgress();
-      } else {
-        this.progress = this.getFallbackProgress();
-      }
-    } catch (err: any) {
-      this.errorMessage = err?.message || 'Unable to load dashboard data.';
-      this.progress = this.getFallbackProgress();
-    } finally {
+  private loadDashboard(): void {
+    setTimeout(() => {
+      this.displayName = 'Christal';
+      this.points = 420;
+
+      this.progress = [
+        {
+          title: 'Angular Basics',
+          completed: 8,
+          total: 10,
+          lastAccessed: new Date(),
+        },
+        {
+          title: 'TypeScript Fundamentals',
+          completed: 5,
+          total: 12,
+        },
+        {
+          title: 'Web Security Essentials',
+          completed: 3,
+          total: 8,
+          lastAccessed: new Date(),
+        },
+      ];
+
       this.loading = false;
-    }
-  }
-
-  get displayName(): string {
-    return this.userData?.displayName || this.userData?.email || 'Learner';
-  }
-
-  get points(): number {
-    return this.userData?.learningProgress?.reduce((sum, p) => sum + Math.floor((p.completed / p.total) * 100), 0) || 0;
-  }
-
-  private getFallbackProgress(): LearningProgress[] {
-    return [
-      { courseId: 'hpv-basics', title: 'HPV Basics', completed: 2, total: 5 },
-      { courseId: 'prevention', title: 'Cervical Cancer Prevention', completed: 1, total: 4 },
-    ];
+    }, 1000);
   }
 }

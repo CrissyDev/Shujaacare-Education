@@ -7,17 +7,23 @@
       <div class="learning-card" *ngFor="let item of progress">
         <div class="card-header">
           <div class="title">{{ item.title }}</div>
-          <div class="percentage">{{ (item.completed / item.total) * 100 | number:'1.0-0' }}%</div>
+          <div class="percentage">
+            {{ (item.completed / item.total) * 100 | number:'1.0-0' }}%
+          </div>
         </div>
+
         <div class="progress-bar">
           <div
             class="progress"
             [style.width.%]="(item.completed / item.total) * 100"
           ></div>
         </div>
+
         <div class="details">
           <span>{{ item.completed }} of {{ item.total }} completed</span>
-          <span *ngIf="item.lastAccessed">Last accessed: {{ item.lastAccessed | date:'shortDate' }}</span>
+          <span *ngIf="item.lastAccessed">
+            Last accessed: {{ item.lastAccessed | date:'shortDate' }}
+          </span>
         </div>
       </div>
     </div>
