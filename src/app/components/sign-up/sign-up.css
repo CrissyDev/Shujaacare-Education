@@ -1,20 +1,25 @@
 .signup-wrapper {
   display: flex;
-  height: 100vh;
+  flex-wrap: wrap;
+  min-height: 100vh;
   width: 100%;
   background: #f8f4f2;
   padding: 40px;
   gap: 40px;
+  box-sizing: border-box;
 }
 
 .form-section {
   background: #efe7e6;
   flex: 1;
+  min-width: 280px;
   border-radius: 40px;
   padding: 50px 60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  box-sizing: border-box;
+  overflow-y: auto;
 }
 
 .form-section h1 {
@@ -119,8 +124,53 @@ form input.error {
   margin-top: 10px;
 }
 
+.divider {
+  margin: 20px 0 12px;
+  font-size: 13px;
+  color: #6a5550;
+  text-align: center;
+}
+
+.google-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 320px;
+  padding: 12px 20px;
+  font-size: 15px;
+  border-radius: 15px;
+  border: 1px solid #dadce0;
+  background: #fff;
+  color: #3c4043;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.google-btn:hover:not(:disabled) {
+  background-color: #f8f9fa;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.google-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.google-btn .google-icon {
+  font-weight: 700;
+  color: #4285f4;
+  font-size: 18px;
+}
+
+.google-btn .google-text {
+  color: #3c4043;
+}
+
 .image-section {
   flex: 1;
+  min-width: 280px;
   border-radius: 40px;
   overflow: hidden;
 }
@@ -128,5 +178,201 @@ form input.error {
 .image-section img {
   width: 100%;
   height: 100%;
+  min-height: 200px;
   object-fit: cover;
+}
+
+/* Tablet and below */
+@media (max-width: 1024px) {
+  .signup-wrapper {
+    padding: 24px;
+    gap: 24px;
+  }
+
+  .form-section {
+    padding: 36px 40px;
+  }
+
+  .form-section h1 {
+    font-size: 36px;
+  }
+
+  .sub {
+    margin: 8px 0 28px;
+  }
+}
+
+/* Small tablet / large phone – keep image beside form */
+@media (max-width: 768px) {
+  .signup-wrapper {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding: 20px;
+    gap: 16px;
+    min-height: 100vh;
+    align-items: stretch;
+  }
+
+  .form-section {
+    flex: 1;
+    min-width: 0;
+    width: auto;
+    padding: 32px 28px;
+    border-radius: 24px;
+    min-height: 0;
+  }
+
+  .form-section h1 {
+    font-size: 32px;
+  }
+
+  .sub {
+    margin: 6px 0 24px;
+  }
+
+  form label {
+    font-size: 13px;
+    margin-top: 10px;
+  }
+
+  form input {
+    padding: 10px 12px;
+    font-size: 16px;
+  }
+
+  .agreement {
+    margin: 16px 0;
+    gap: 8px;
+  }
+
+  .agreement label {
+    font-size: 13px;
+  }
+
+  .signup-btn {
+    width: 100%;
+    max-width: 320px;
+    padding: 12px;
+  }
+
+  .image-section {
+    flex: 0 0 35%;
+    min-width: 140px;
+    border-radius: 24px;
+    align-self: stretch;
+  }
+
+  .image-section img {
+    min-height: 100%;
+    height: 100%;
+    max-height: none;
+    object-fit: cover;
+  }
+}
+
+/* Mobile – image still beside form */
+@media (max-width: 480px) {
+  .signup-wrapper {
+    padding: 12px;
+    gap: 12px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  .form-section {
+    flex: 1;
+    min-width: 0;
+    padding: 24px 20px;
+    border-radius: 20px;
+  }
+
+  .form-section h1 {
+    font-size: 28px;
+  }
+
+  .sub {
+    margin: 4px 0 20px;
+    font-size: 14px;
+  }
+
+  form label {
+    font-size: 12px;
+    margin-top: 8px;
+  }
+
+  form input {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 12px;
+  }
+
+  .form-group {
+    margin-bottom: 12px;
+  }
+
+  .agreement {
+    margin: 14px 0;
+    flex-wrap: wrap;
+  }
+
+  .agreement input {
+    width: 16px;
+    height: 16px;
+  }
+
+  .agreement label {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .signup-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 15px;
+    border-radius: 24px;
+    margin-top: 8px;
+  }
+
+  .image-section {
+    flex: 0 0 28%;
+    min-width: 100px;
+    border-radius: 20px;
+    align-self: stretch;
+  }
+
+  .image-section img {
+    min-height: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .error-message,
+  .success-message {
+    font-size: 11px;
+  }
+}
+
+/* Very small screens – image beside form, tighter layout */
+@media (max-width: 360px) {
+  .signup-wrapper {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .form-section {
+    padding: 20px 16px;
+  }
+
+  .form-section h1 {
+    font-size: 24px;
+  }
+
+  .signup-btn {
+    font-size: 14px;
+  }
+
+  .image-section {
+    flex: 0 0 24%;
+    min-width: 80px;
+  }
 }

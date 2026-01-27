@@ -71,8 +71,16 @@
     <div class="divider">Or sign in with</div>
 
     <div class="social-row">
-      <button type="button" class="social-btn google">G</button>
-      <button type="button" class="social-btn facebook">f</button>
+      <button
+        type="button"
+        class="social-btn google"
+        (click)="onGoogleSignIn()"
+        [disabled]="isLoading"
+        aria-label="Login with Google"
+      >
+        <span class="google-icon" aria-hidden="true">G</span>
+        <span class="google-text">Login with Google</span>
+      </button>
     </div>
 
   </div>

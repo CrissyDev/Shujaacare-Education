@@ -69,37 +69,6 @@
         </div>
       </div>
 
-      <div class="form-group">
-        <label>Repeat your password:</label>
-        <div class="password-input-wrapper">
-          <input
-            [type]="showConfirmPassword ? 'text' : 'password'"
-            placeholder="******"
-            formControlName="confirmPassword"
-            [class.error]="form.get('confirmPassword')?.invalid && form.get('confirmPassword')?.touched"
-          />
-          <button
-            type="button"
-            class="eye-icon"
-            (click)="toggleConfirmPasswordVisibility()"
-            [attr.aria-label]="showConfirmPassword ? 'Hide password' : 'Show password'"
-          >
-            {{ showConfirmPassword ? '🙈' : '👁️' }}
-          </button>
-        </div>
-        <div
-          class="error-message"
-          *ngIf="form.get('confirmPassword')?.invalid && form.get('confirmPassword')?.touched"
-        >
-          <span *ngIf="form.get('confirmPassword')?.errors?.['required']"
-            >Please confirm your password</span
-          >
-          <span *ngIf="form.get('confirmPassword')?.errors?.['passwordMismatch']"
-            >Passwords do not match</span
-          >
-        </div>
-      </div>
-
       <div class="agreement">
         <input type="checkbox" id="agree" formControlName="agreeToTerms" />
         <label for="agree">
@@ -123,6 +92,18 @@
       <button type="submit" class="signup-btn" [disabled]="form.invalid || isLoading">
         <span *ngIf="!isLoading">Sign up</span>
         <span *ngIf="isLoading">Signing up...</span>
+      </button>
+
+      <p class="divider">Or sign up with</p>
+      <button
+        type="button"
+        class="google-btn"
+        (click)="onGoogleSignUp()"
+        [disabled]="isLoading"
+        aria-label="Sign up with Google"
+      >
+        <span class="google-icon" aria-hidden="true">G</span>
+        <span class="google-text">Sign up with Google</span>
       </button>
     </form>
   </div>
