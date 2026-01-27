@@ -1,12 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  ReactiveFormsModule,
-  FormBuilder,
-  FormGroup,
-  Validators,
-  AbstractControl,
-} from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
@@ -25,49 +19,21 @@ export class SignUp {
   form: FormGroup;
 
   showPassword = false;
-  showConfirmPassword = false;
   isLoading = false;
   errorMessage = '';
   successMessage = '';
 
   constructor() {
-    this.form = this.fb.group(
-      {
-        displayName: ['', [Validators.required, Validators.minLength(2)]],
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(6)]],
-        confirmPassword: ['', [Validators.required]],
-        agreeToTerms: [false, Validators.requiredTrue],
-      },
-      {
-        validators: this.passwordMatchValidator,
-      }
-    );
-  }
-
-  passwordMatchValidator(control: AbstractControl) {
-    const password = control.get('password')?.value;
-    const confirmPasswordControl = control.get('confirmPassword');
-
-    if (!confirmPasswordControl) return null;
-
-    if (password !== confirmPasswordControl.value) {
-      confirmPasswordControl.setErrors({ passwordMismatch: true });
-    } else {
-      if (confirmPasswordControl.hasError('passwordMismatch')) {
-        confirmPasswordControl.setErrors(null);
-      }
-    }
-
-    return null;
+    this.form = this.fb.group({
+      displayName: ['', [Validators.required, Validators.minLength(2)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      agreeToTerms: [false, Validators.requiredTrue],
+    });
   }
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
-  }
-
-  toggleConfirmPasswordVisibility() {
-    this.showConfirmPassword = !this.showConfirmPassword;
   }
 
   async onSubmit() {
