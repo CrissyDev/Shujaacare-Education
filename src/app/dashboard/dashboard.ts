@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-interface LearningProgress {
-  title: string;
-  completed: number;
-  total: number;
-  lastAccessed?: Date;
-}
+import { AuthService, LearningProgress } from '../services/auth.service';
+import { Router } from '@angular/router';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../config/firebase.config';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,44 +13,38 @@ interface LearningProgress {
   styleUrls: ['./dashboard.css'],
 })
 export class DashboardComponent implements OnInit {
+  displayName = 'User';
   loading = true;
   errorMessage = '';
 
-  displayName = 'Student';
+  progress: LearningProgress[] = [];
   points = 0;
 
-  progress: LearningProgress[] = [];
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.loadDashboard();
-  }
+    onAuthStateChanged(auth, async user => {
+      if (!user) {
+        this.router.navigate(['/sign-in']);
+        return;
+      }
 
-  private loadDashboard(): void {
-    setTimeout(() => {
-      this.displayName = 'Christal';
-      this.points = 420;
+      this.displayName = user.displayName || 'User';
 
-      this.progress = [
-        {
-          title: 'Angular Basics',
-          completed: 8,
-          total: 10,
-          lastAccessed: new Date(),
-        },
-        {
-          title: 'TypeScript Fundamentals',
-          completed: 5,
-          total: 12,
-        },
-        {
-          title: 'Web Security Essentials',
-          completed: 3,
-          total: 8,
-          lastAccessed: new Date(),
-        },
-      ];
+      const userData = await this.authService.getUserData(user.uid);
+
+      if (userData?.learningProgress) {
+        this.progress = userData.learningProgress;
+        this.points = this.progress.reduce(
+          (sum, p) => sum + p.completed,
+          0
+        );
+      }
 
       this.loading = false;
-    }, 1000);
+    });
   }
 }
