@@ -63,11 +63,12 @@ export class SignIn {
 
     try {
       await this.authService.signInWithGoogle();
-      this.successMessage = 'Signed in with Google!';
-      this.router.navigate(['/dashboard']);
+      this.successMessage = 'Signed in with Google! Redirecting...';
+      setTimeout(() => {
+        this.router.navigate(['/dashboard']);
+      }, 500);
     } catch (error: any) {
       this.errorMessage = error?.message || 'Google sign-in failed.';
-    } finally {
       this.isLoading = false;
     }
   }

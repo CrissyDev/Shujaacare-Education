@@ -77,7 +77,6 @@ export class SignUp {
       }, 800);
     } catch (error: any) {
       this.errorMessage = error?.message || 'Google sign-up failed.';
-    } finally {
       this.isLoading = false;
     }
   }
