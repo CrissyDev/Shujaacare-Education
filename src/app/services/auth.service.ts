@@ -75,7 +75,7 @@ export class AuthService {
         updatedAt: new Date(),
       };
 
-      await setDoc(doc(db, 'users', user.uid), userDoc);
+      // await setDoc(doc(db, 'users', user.uid), userDoc);
 
       return userCredential;
     } catch (error: any) {

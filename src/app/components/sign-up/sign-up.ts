@@ -81,14 +81,18 @@ export class SignUp {
 
     try {
       const { displayName, email, password } = this.form.value;
+      
 
-      await this.authService.signUp(email, password, { displayName });
+      await this.authService.signUp(email, password, { displayName }).then(() => {
+        this.successMessage = 'Account created successfully! Redirecting...';
+        return this.router.navigate(['dashboard']);
+      });
 
-      this.successMessage = 'Account created successfully! Redirecting...';
+     
 
-      setTimeout(() => {
-        this.router.navigate(['/dashboard']);
-      }, 800);
+      // setTimeout(() => {
+      //   this.router.navigate(['dashboard']);
+      // }, 800);
     } catch (error: any) {
       this.errorMessage =
         error?.message || 'An error occurred during sign-up';
