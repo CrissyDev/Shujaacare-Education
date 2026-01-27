@@ -119,28 +119,50 @@ input.error {
 .social-row {
   display: flex;
   justify-content: center;
-  gap: 12px;
+  margin-top: 8px;
+  width: 100%;
 }
 
 .social-btn {
-  width: 55px;
-  height: 45px;
   border-radius: 12px;
   border: none;
   background: #fff;
-  font-size: 20px;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 20px;
+  font-size: 15px;
+  transition: background-color 0.2s, box-shadow 0.2s;
 }
 
 .social-btn.google {
+  width: 100%;
+  max-width: 320px;
   background-color: #fff;
-  border: 1px solid #ddd;
-  color: #db4437; /* Google red */
+  border: 1px solid #dadce0;
+  color: #3c4043;
 }
 
-.social-btn.facebook {
-  background-color: #1877f2; /* Facebook blue */
-  color: #fff;
+.social-btn.google:hover:not(:disabled) {
+  background-color: #f8f9fa;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.social-btn.google:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.google-icon {
+  font-weight: 700;
+  color: #4285f4;
+  font-size: 18px;
+}
+
+.google-text {
+  color: #3c4043;
 }
 
 @media (max-width: 480px) {

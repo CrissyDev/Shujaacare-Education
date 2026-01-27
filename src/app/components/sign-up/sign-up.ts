@@ -63,6 +63,25 @@ export class SignUp {
     }
   }
 
+  async onGoogleSignUp() {
+    if (this.isLoading) return;
+    this.isLoading = true;
+    this.errorMessage = '';
+    this.successMessage = '';
+
+    try {
+      await this.authService.signInWithGoogle();
+      this.successMessage = 'Signed up with Google! Redirecting...';
+      setTimeout(() => {
+        this.router.navigate(['/dashboard']);
+      }, 800);
+    } catch (error: any) {
+      this.errorMessage = error?.message || 'Google sign-up failed.';
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
   private markFormGroupTouched(formGroup: FormGroup) {
     Object.values(formGroup.controls).forEach(control => {
       control.markAsTouched();

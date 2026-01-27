@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
   signOut,
   User,
   UserCredential,
@@ -91,8 +93,35 @@ export class AuthService {
         password
       );
 
-    
       await this.waitForAuthReady();
+
+      return credential;
+    } catch (error: any) {
+      throw this.handleAuthError(error);
+    }
+  }
+
+  async signInWithGoogle(): Promise<UserCredential> {
+    try {
+      const provider = new GoogleAuthProvider();
+      const credential = await signInWithPopup(auth, provider);
+      const user = credential.user;
+
+      await this.waitForAuthReady();
+
+      const existing = await getDoc(doc(db, 'users', user.uid));
+      if (!existing.exists()) {
+        const userDoc: UserData = {
+          uid: user.uid,
+          email: user.email || '',
+          displayName: user.displayName || '',
+          phoneNumber: user.phoneNumber || '',
+          learningProgress: [],
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        };
+        await setDoc(doc(db, 'users', user.uid), userDoc);
+      }
 
       return credential;
     } catch (error: any) {
@@ -172,6 +201,13 @@ export class AuthService {
         break;
       case 'auth/network-request-failed':
         errorMessage = 'Network error. Check your internet connection.';
+        break;
+      case 'auth/popup-closed-by-user':
+      case 'auth/cancelled-popup-request':
+        errorMessage = 'Sign-in was cancelled.';
+        break;
+      case 'auth/account-exists-with-different-credential':
+        errorMessage = 'This email is already registered with another sign-in method.';
         break;
       default:
         errorMessage = error.message || errorMessage;

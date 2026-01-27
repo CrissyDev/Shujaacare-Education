@@ -93,6 +93,18 @@
         <span *ngIf="!isLoading">Sign up</span>
         <span *ngIf="isLoading">Signing up...</span>
       </button>
+
+      <p class="divider">Or sign up with</p>
+      <button
+        type="button"
+        class="google-btn"
+        (click)="onGoogleSignUp()"
+        [disabled]="isLoading"
+        aria-label="Sign up with Google"
+      >
+        <span class="google-icon" aria-hidden="true">G</span>
+        <span class="google-text">Sign up with Google</span>
+      </button>
     </form>
   </div>
 

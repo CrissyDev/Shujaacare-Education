@@ -47,10 +47,26 @@ export class SignIn {
       const { email, password } = this.form.value;
       await this.authService.signIn(email, password);
       this.successMessage = 'Signed in successfully!';
-      // Redirect to dashboard after successful sign in
       this.router.navigate(['/dashboard']);
     } catch (error: any) {
       this.errorMessage = error.message || 'An error occurred during sign in';
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  async onGoogleSignIn() {
+    if (this.isLoading) return;
+    this.isLoading = true;
+    this.errorMessage = '';
+    this.successMessage = '';
+
+    try {
+      await this.authService.signInWithGoogle();
+      this.successMessage = 'Signed in with Google!';
+      this.router.navigate(['/dashboard']);
+    } catch (error: any) {
+      this.errorMessage = error?.message || 'Google sign-in failed.';
     } finally {
       this.isLoading = false;
     }
