@@ -3,33 +3,33 @@
   <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="brand">
-      <img src="assets/shujaacare logo.jpeg" alt="Logo" />
+      <img src="assets/shujaacare logo.jpeg" alt="ShujaaCare Logo" />
       <span>ShujaaCare</span>
     </div>
 
     <ul class="menu">
-      <li routerLink="/dashboard" routerLinkActive="active">
-        <span>Overview</span>
+      <li [class.active]="activeTab === 'overview'" (click)="activeTab = 'overview'">
+        <i class="fa fa-grid"></i> Overview
       </li>
-      <li routerLink="/lessons" routerLinkActive="active">
-        <span>Lessons</span>
+      <li [class.active]="activeTab === 'lessons'" (click)="activeTab = 'lessons'">
+        <i class="fa fa-book"></i> Lessons
       </li>
-      <li routerLink="/leaderboard" routerLinkActive="active">
-        <span>Leaderboard</span>
+      <li [class.active]="activeTab === 'leaderboard'" (click)="activeTab = 'leaderboard'">
+        <i class="fa fa-trophy"></i> Leaderboard
       </li>
-      <li routerLink="/courses" routerLinkActive="active">
-        <span>Courses</span>
+      <li [class.active]="activeTab === 'courses'" (click)="activeTab = 'courses'">
+        <i class="fa fa-layer-group"></i> Courses
       </li>
-      <li routerLink="/kit" routerLinkActive="active">
-        <span>Get My Kit</span>
+      <li [class.active]="activeTab === 'kit'" (click)="activeTab = 'kit'">
+        <i class="fa fa-box"></i> Get My Kit
       </li>
-      <li routerLink="/settings" routerLinkActive="active">
-        <span>Settings</span>
+      <li [class.active]="activeTab === 'settings'" (click)="activeTab = 'settings'">
+        <i class="fa fa-gear"></i> Settings
       </li>
     </ul>
   </aside>
 
-  <!-- MAIN CONTENT -->
+  <!-- MAIN -->
   <main class="content">
 
     <!-- TOP BAR -->
@@ -38,64 +38,136 @@
 
       <div class="top-actions">
         <div class="search">
-          <input type="text" placeholder="Search here..." />
+          <i class="fa fa-search"></i>
+          <input placeholder="Search here..." />
         </div>
 
-        <div class="icons">
-          <span class="icon">🔔</span>
-          <img
-            class="avatar"
-            src="assets/Gemini_Generated_Image_es3d4fes3d4fes3d.png"
-          />
+        <div class="icon-btn">
+          <i class="fa fa-message"></i>
+          <span class="badge">5</span>
         </div>
+
+        <div class="icon-btn">
+          <i class="fa fa-bell"></i>
+        </div>
+
+        <img class="avatar" src="assets/Gemini_Generated_Image_es3d4fes3d4fes3d.png" alt="User Avatar" />
       </div>
     </header>
 
-    <!-- CONTINUE LEARNING -->
-    <section>
-      <h2>Continue Learning</h2>
+    <div class="main-grid">
 
-      <div class="cards">
-        <div class="course-card" *ngFor="let course of progress">
-          <img [src]="course.image" class="course-image" />
+      <!-- CENTER CONTENT -->
+      <div>
 
-          <div class="course-body">
-            <h3>{{ course.title }}</h3>
-            <p class="muted">
-              {{ course.completed }} / {{ course.total }} Lessons
-            </p>
+        <!-- OVERVIEW TAB -->
+        <ng-container *ngIf="activeTab === 'overview'">
 
-            <div class="progress-bar">
-              <div
-                class="progress-fill"
-                [style.width.%]="(course.completed / course.total) * 100"
-              ></div>
+          <!-- CONTINUE LEARNING -->
+          <section>
+            <h2>Continue Learning</h2>
+
+            <div *ngIf="progress.length === 0" class="empty-state">
+              <i class="fa fa-graduation-cap"></i>
+              <p>No courses started yet</p>
+              <span>Start a course to track your learning progress</span>
             </div>
 
-            <button (click)="goToCourse(course.id)">
-              Resume Course
-            </button>
+            <div class="cards" *ngIf="progress.length > 0">
+              <div
+                class="course-card"
+                *ngFor="let course of progress; trackBy: trackByCourse"
+                (click)="showDetails = true"
+              >
+                <div class="course-header">
+                  <img [src]="course.image" [alt]="course.title" />
+                  <div>
+                    <h3>{{ course.title }}</h3>
+                    <span class="tag">Course</span>
+                  </div>
+                </div>
+
+                <div class="progress-info">
+                  <span>{{ course.completed }}/{{ course.total }} Lessons</span>
+                  <span>2 hours left</span>
+                </div>
+
+                <div class="progress-bar">
+                  <div
+                    class="progress-fill"
+                    [style.width.%]="(course.completed / course.total) * 100"
+                  ></div>
+                </div>
+
+                <button (click)="goToCourse(course.id)">
+                  Resume Course →
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- RECOMMENDED COURSES -->
+          <section class="spaced">
+            <h2>Recommended Courses For You</h2>
+
+            <div class="cards">
+              <div
+                class="video-card"
+                *ngFor="let rec of recommended; trackBy: trackByRecommended"
+                [style.backgroundImage]="'url(' + rec.image + ')'"
+              >
+                <div class="video-overlay">
+                  <span class="duration">9:32</span>
+                  <h4>{{ rec.title }}</h4>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </ng-container>
+
+        <!-- OTHER TABS PLACEHOLDER -->
+        <ng-container *ngIf="activeTab !== 'overview'">
+          <section class="empty-state">
+            <i class="fa fa-layer-group"></i>
+            <p>{{ activeTab | titlecase }} Section</p>
+            <span>Content for this section will appear here</span>
+          </section>
+        </ng-container>
+
+      </div>
+
+      <!-- RIGHT DETAILS PANEL -->
+      <aside class="details" *ngIf="showDetails">
+        <button class="close" (click)="showDetails = false">
+          ← Close Details
+        </button>
+
+        <div class="profile-card">
+          <img src="assets/Gemini_Generated_Image_es3d4fes3d4fes3d.png" alt="Profile" />
+          <h3>{{ displayName }}</h3>
+          <p>Health Learning Path</p>
+          <span class="points">
+            <i class="fa fa-star"></i> {{ points }} Points
+          </span>
+        </div>
+
+        <div class="stat-grid">
+          <div>
+            <strong>54</strong>
+            <span>Days Streak</span>
+          </div>
+          <div>
+            <strong>06</strong>
+            <span>Goals</span>
+          </div>
+          <div>
+            <strong>02</strong>
+            <span>Rank</span>
           </div>
         </div>
-      </div>
-    </section>
+      </aside>
 
-    <!-- RECOMMENDED -->
-    <section class="spaced">
-      <h2>Recommended Courses For You</h2>
-
-      <div class="cards">
-        <div
-          class="video-card"
-          *ngFor="let rec of recommended"
-          [style.backgroundImage]="'url(' + rec.image + ')'"
-        >
-          <div class="video-overlay">
-            <h4>{{ rec.title }}</h4>
-          </div>
-        </div>
-      </div>
-    </section>
-
+    </div>
   </main>
 </div>

@@ -1,18 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService, LearningProgress } from '../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../config/firebase.config';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css'],
 })
 export class DashboardComponent implements OnInit {
+
+  activeTab:
+    | 'overview'
+    | 'lessons'
+    | 'leaderboard'
+    | 'courses'
+    | 'kit'
+    | 'settings' = 'overview';
+
+  showDetails = false;
+
   displayName = 'User';
   loading = true;
   errorMessage = '';
@@ -30,6 +41,7 @@ export class DashboardComponent implements OnInit {
       image: 'assets/pexels-cottonbro-6471431.jpg',
     },
   ];
+// trackByRecommended: TrackByFunction<{ title: string; image: string; }>;
 
   constructor(
     private authService: AuthService,
@@ -59,7 +71,19 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  goToCourse(courseId: string) {
+  toggleDetails(): void {
+    this.showDetails = !this.showDetails;
+  }
+
+  goToCourse(courseId: string): void {
     this.router.navigate(['/courses', courseId]);
   }
+
+  trackByCourse(index: number, course: LearningProgress) {
+  return course.id;
+}
+  trackByRecommended(index: number, rec:any) {
+    return rec.title;
+
+}
 }
