@@ -13,16 +13,23 @@ import { auth } from '../config/firebase.config';
   styleUrls: ['./dashboard.css'],
 })
 export class DashboardComponent implements OnInit {
-recommended: any;
-goToCourse(arg0: any) {
-throw new Error('Method not implemented.');
-}
   displayName = 'User';
   loading = true;
   errorMessage = '';
 
   progress: LearningProgress[] = [];
   points = 0;
+
+  recommended = [
+    {
+      title: 'What is HPV?',
+      image: 'assets/pexels-mikhail-nilov-8669897.jpg',
+    },
+    {
+      title: 'What Is Cervical Cancer?',
+      image: 'assets/pexels-cottonbro-6471431.jpg',
+    },
+  ];
 
   constructor(
     private authService: AuthService,
@@ -50,5 +57,9 @@ throw new Error('Method not implemented.');
 
       this.loading = false;
     });
+  }
+
+  goToCourse(courseId: string) {
+    this.router.navigate(['/courses', courseId]);
   }
 }
