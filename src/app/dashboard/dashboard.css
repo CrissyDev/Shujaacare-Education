@@ -1,11 +1,11 @@
 :root {
-  --primary: #6a5acd;
-  --primary-light: #f0edff;
-  --bg: #f7f8fc;
+  --primary: #ff8a50;
+  --primary-soft: #fff1ea;
+  --bg: #faf7f3;
   --white: #ffffff;
   --text-dark: #222;
   --text-muted: #777;
-  --border: #e5e7eb;
+  --border: #ececec;
 }
 
 .dashboard-wrapper {
@@ -22,37 +22,42 @@
   border-right: 1px solid var(--border);
 }
 
-.logo {
-  font-size: 22px;
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-weight: 800;
+  font-size: 20px;
   color: var(--primary);
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.brand img {
+  width: 36px;
 }
 
 .menu {
   list-style: none;
   padding: 0;
-  margin: 0;
 }
 
 .menu li {
   padding: 12px 16px;
-  margin-bottom: 8px;
-  border-radius: 10px;
+  border-radius: 12px;
+  margin-bottom: 6px;
   cursor: pointer;
-  font-weight: 500;
   color: var(--text-muted);
-  transition: background 0.25s ease, color 0.25s ease;
+  transition: all 0.25s;
 }
 
 .menu li:hover {
-  background: var(--primary-light);
+  background: var(--primary-soft);
   color: var(--primary);
 }
 
 .menu li.active {
   background: var(--primary);
-  color: var(--white);
+  color: white;
 }
 
 .content {
@@ -64,28 +69,37 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2.5rem;
 }
 
-.topbar h1 {
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--text-dark);
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
 }
 
-.topbar input {
+.search input {
   padding: 10px 14px;
-  border-radius: 10px;
+  border-radius: 12px;
   border: 1px solid var(--border);
-  outline: none;
-  min-width: 260px;
 }
 
-section h2 {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 1.2rem;
-  color: var(--text-dark);
+.icons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.avatar {
+  width: 38px;
+  border-radius: 50%;
+}
+
+section {
+  margin-top: 2.5rem;
+}
+
+.spaced {
+  margin-top: 4rem;
 }
 
 .cards {
@@ -94,58 +108,73 @@ section h2 {
   flex-wrap: wrap;
 }
 
-/* Course Card */
 .course-card {
-  background: var(--white);
-  padding: 1.5rem;
-  border-radius: 16px;
-  width: 260px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 280px;
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
 }
 
-.course-card h3 {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 6px;
+.course-image {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
 }
 
-.course-card span {
-  font-size: 14px;
-  color: var(--text-muted);
+.course-body {
+  padding: 1rem;
 }
 
-.course-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(106,90,205,0.35);
+.progress-bar {
+  height: 8px;
+  background: #eee;
+  border-radius: 8px;
+  margin: 8px 0;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 8px;
 }
 
 .course-card button {
-  background: var(--primary);
-  color: var(--white);
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 12px;
   border: none;
-  padding: 10px 16px;
-  border-radius: 10px;
-  margin-top: 1rem;
+  background: var(--primary);
+  color: white;
   cursor: pointer;
-  font-weight: 500;
-  transition: background 0.25s ease;
-}
-
-.course-card button:hover {
-  background: #5848c2;
 }
 
 .video-card {
-  height: 180px;
   width: 300px;
-  background: linear-gradient(135deg, #6a5acd, #8a7cff);
-  border-radius: 18px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 12px 30px rgba(106,90,205,0.35);
+  height: 180px;
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
 }
 
-.video-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 20px 45px rgba(106,90,205,0.45);
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem;
+  color: white;
+}
+
+@media (max-width: 900px) {
+  .sidebar {
+    display: none;
+  }
+
+  .content {
+    padding: 1.5rem;
+  }
 }

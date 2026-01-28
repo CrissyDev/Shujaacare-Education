@@ -1,89 +1,93 @@
 <div class="dashboard-wrapper">
 
-  <!-- Sidebar -->
+  <!-- SIDEBAR -->
   <aside class="sidebar">
-    <h2 class="logo">ShujaaCare</h2>
+    <div class="brand">
+      <img src="assets/shujaacare logo.jpeg" alt="Logo" />
+      <span>ShujaaCare</span>
+    </div>
 
     <ul class="menu">
-      <li
-        routerLink="/dashboard"
-        routerLinkActive="active"
-      >
-        Overview
+      <li routerLink="/dashboard" routerLinkActive="active">
+        <span>Overview</span>
       </li>
-
-      <li
-        routerLink="/lessons"
-        routerLinkActive="active"
-      >
-        Lessons
+      <li routerLink="/lessons" routerLinkActive="active">
+        <span>Lessons</span>
       </li>
-
-      <li
-        routerLink="/leaderboard"
-        routerLinkActive="active"
-      >
-        Leaderboard
+      <li routerLink="/leaderboard" routerLinkActive="active">
+        <span>Leaderboard</span>
       </li>
-
-      <li
-        routerLink="/courses"
-        routerLinkActive="active"
-      >
-        Courses
+      <li routerLink="/courses" routerLinkActive="active">
+        <span>Courses</span>
       </li>
-
-      <li
-        routerLink="/kit"
-        routerLinkActive="active"
-      >
-        Get My Kit
+      <li routerLink="/kit" routerLinkActive="active">
+        <span>Get My Kit</span>
       </li>
-
-      <li
-        routerLink="/settings"
-        routerLinkActive="active"
-      >
-        Settings
+      <li routerLink="/settings" routerLinkActive="active">
+        <span>Settings</span>
       </li>
     </ul>
   </aside>
 
-  <!-- Main Content -->
+  <!-- MAIN -->
   <main class="content">
 
-    <!-- Top Bar -->
+    <!-- TOP BAR -->
     <header class="topbar">
       <h1>Dashboard</h1>
-      <input type="text" placeholder="Search here..." />
+
+      <div class="top-actions">
+        <div class="search">
+          <input type="text" placeholder="Search here..." />
+        </div>
+
+        <div class="icons">
+          <span class="icon">🔔</span>
+          <img class="avatar" src="assets/Gemini_Generated_Image_es3d4fes3d4fes3d.png" />
+        </div>
+      </div>
     </header>
 
-    <!-- Continue Learning -->
+    <!-- CONTINUE LEARNING -->
     <section>
       <h2>Continue Learning</h2>
 
       <div class="cards">
-        <div class="course-card">
-          <h3>Introduction to Cervical Cancer</h3>
-          <span>1 / 5 Lessons</span>
-          <button>Resume</button>
-        </div>
+        <div class="course-card" *ngFor="let course of progress">
+          <img [src]="course.image" class="course-image" />
 
-        <div class="course-card">
-          <h3>What is Hpv?</h3>
-          <span>18 / 40 Lessons</span>
-          <button>Resume</button>
+          <div class="course-body">
+            <h3>{{ course.title }}</h3>
+            <p>{{ course.completed }} / {{ course.total }} Lessons</p>
+
+            <!-- Progress -->
+            <div class="progress-bar">
+              <div
+                class="progress-fill"
+                [style.width.%]="(course.completed / course.total) * 100"
+              ></div>
+            </div>
+
+            <button (click)="goToCourse(course.id)">Resume Course</button>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Recommended Courses -->
-    <section style="margin-top: 3rem;">
-      <h2>Recommended Courses</h2>
+    <!-- RECOMMENDED -->
+    <section class="spaced">
+      <h2>Recommended Courses For You</h2>
 
       <div class="cards">
-        <div class="video-card"></div>
-        <div class="video-card"></div>
+        <div
+          class="video-card"
+          *ngFor="let rec of recommended"
+          [style.backgroundImage]="'url(' + rec.image + ')'"
+        >
+          <div class="video-overlay">
+            <h4>{{ rec.title }}</h4>
+          </div>
+        </div>
       </div>
     </section>
 

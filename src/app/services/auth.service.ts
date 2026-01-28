@@ -14,6 +14,8 @@ import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../config/firebase.config';
 
 export interface LearningProgress {
+id: any;
+image: any;
   courseId: string;
   title: string;
   completed: number;

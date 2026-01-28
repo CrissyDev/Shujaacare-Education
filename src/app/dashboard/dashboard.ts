@@ -13,6 +13,10 @@ import { auth } from '../config/firebase.config';
   styleUrls: ['./dashboard.css'],
 })
 export class DashboardComponent implements OnInit {
+recommended: any;
+goToCourse(arg0: any) {
+throw new Error('Method not implemented.');
+}
   displayName = 'User';
   loading = true;
   errorMessage = '';
