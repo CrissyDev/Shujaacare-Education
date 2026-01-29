@@ -1,0 +1,99 @@
+:root {
+  --primary: #6a5acd;
+  --primary-light: #f1efff;
+  --text-dark: #1f2937;
+  --text-muted: #6b7280;
+  --white: #ffffff;
+}
+
+.kit-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(
+    180deg,
+    var(--primary-light),
+    #ffffff
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  position: relative;
+}
+
+/* Skip */
+.skip {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.5rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.skip:hover {
+  color: var(--primary);
+}
+
+/* Illustration */
+.illustration {
+  max-width: 280px;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+}
+
+/* Title */
+h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 0.6rem;
+}
+
+/* Description */
+p {
+  font-size: 15px;
+  color: var(--text-muted);
+  max-width: 320px;
+  line-height: 1.6;
+}
+
+/* Dots */
+.dots {
+  display: flex;
+  gap: 8px;
+  margin: 2rem 0;
+}
+
+.dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #d1d5db;
+}
+
+.dots span.active {
+  background: var(--primary);
+  width: 22px;
+  border-radius: 10px;
+}
+
+/* Button */
+.next-btn {
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+  padding: 12px 26px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.next-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px rgba(106, 90, 205, 0.35);
+}
+
+/* Mobile first – already optimized */

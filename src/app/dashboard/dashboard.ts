@@ -13,6 +13,10 @@ import { auth } from '../config/firebase.config';
   styleUrls: ['./dashboard.css'],
 })
 export class DashboardComponent implements OnInit {
+// activeSection: any;
+// showKit() {
+// throw new Error('Method not implemented.');
+// }
 
   activeTab:
     | 'overview'
@@ -86,4 +90,10 @@ export class DashboardComponent implements OnInit {
     return rec.title;
 
 }
+activeSection: 'home' | 'kit' = 'home';
+
+showKit() {
+  this.activeSection = 'kit';
+}
+
 }

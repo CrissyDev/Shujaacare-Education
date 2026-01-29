@@ -1,0 +1,30 @@
+<div class="kit-wrapper">
+
+  <!-- Skip -->
+  <div class="skip" (click)="skip()">Skip</div>
+
+  <!-- Illustration -->
+  <img
+    class="illustration"
+    [src]="steps[currentStep].image"
+    alt="Get My Kit step"
+  />
+
+  <!-- Content -->
+  <h2>{{ steps[currentStep].title }}</h2>
+  <p>{{ steps[currentStep].description }}</p>
+
+  <!-- Progress Dots -->
+  <div class="dots">
+    <span
+      *ngFor="let step of steps; let i = index"
+      [class.active]="i === currentStep"
+    ></span>
+  </div>
+
+  <!-- Next Button -->
+  <button class="next-btn" (click)="next()">
+    {{ currentStep === steps.length - 1 ? 'Start Ordering' : 'Next' }}
+  </button>
+
+</div>

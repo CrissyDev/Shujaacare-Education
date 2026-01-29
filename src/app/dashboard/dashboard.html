@@ -22,7 +22,10 @@
       </li>
       <li [class.active]="activeTab === 'kit'" (click)="activeTab = 'kit'">
         <i class="fa fa-box"></i> Get My Kit
-      </li>
+      </li><li (click)="showKit()" [class.active]="activeSection === 'kit'">
+          <i class="fa fa-box"></i> Get My Kit
+        </li>
+
       <li [class.active]="activeTab === 'settings'" (click)="activeTab = 'settings'">
         <i class="fa fa-gear"></i> Settings
       </li>

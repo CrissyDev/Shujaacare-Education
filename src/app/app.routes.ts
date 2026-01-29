@@ -6,6 +6,11 @@ import { SignIn } from './components/sign-in/sign-in';
 import { DashboardComponent } from './dashboard/dashboard';
 
 export const routes: Routes = [
+
+  /* =======================
+     Public Pages
+  ======================== */
+
   {
     path: '',
     component: Home,
@@ -24,13 +29,19 @@ export const routes: Routes = [
     title: 'Welcome Back | ShujaaCare'
   },
 
+  /* =======================
+     Dashboard
+  ======================== */
+
   {
     path: 'dashboard',
     component: DashboardComponent,
     title: 'Dashboard | ShujaaCare'
   },
 
-  /* ---------- DASHBOARD SUB PAGES ---------- */
+  /* =======================
+     Lessons
+  ======================== */
 
   {
     path: 'lessons',
@@ -40,6 +51,10 @@ export const routes: Routes = [
     title: 'Lessons | ShujaaCare'
   },
 
+  /* =======================
+     Courses
+  ======================== */
+
   {
     path: 'courses/:id',
     loadComponent: () =>
@@ -47,6 +62,10 @@ export const routes: Routes = [
         .then(m => m.CourseDetail),
     title: 'Course | ShujaaCare'
   },
+
+  /* =======================
+     Leaderboard
+  ======================== */
 
   {
     path: 'leaderboard',
@@ -56,6 +75,22 @@ export const routes: Routes = [
     title: 'Leaderboard | ShujaaCare'
   },
 
+  /* =======================
+     Get My Kit
+  ======================== */
+
+  {
+    path: 'kit',
+    loadComponent: () =>
+      import('./get-my-kit/get-my-kit')
+        .then(m => m.GetMyKitComponent),
+    title: 'Get My Kit | ShujaaCare'
+  },
+
+  /* =======================
+     Settings
+  ======================== */
+
   {
     path: 'settings',
     loadComponent: () =>
@@ -64,6 +99,9 @@ export const routes: Routes = [
     title: 'Settings | ShujaaCare'
   },
 
+  /* =======================
+     Fallback
+  ======================== */
 
   {
     path: '**',
