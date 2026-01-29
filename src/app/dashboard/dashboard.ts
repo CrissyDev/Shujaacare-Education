@@ -4,11 +4,14 @@ import { AuthService, LearningProgress } from '../services/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../config/firebase.config';
+import { GetMyKitComponent } from '../get-my-kit/get-my-kit';
+
+
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, GetMyKitComponent],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css'],
 })

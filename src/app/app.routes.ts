@@ -7,9 +7,6 @@ import { DashboardComponent } from './dashboard/dashboard';
 
 export const routes: Routes = [
 
-  /* =======================
-     Public Pages
-  ======================== */
 
   {
     path: '',
@@ -29,19 +26,12 @@ export const routes: Routes = [
     title: 'Welcome Back | ShujaaCare'
   },
 
-  /* =======================
-     Dashboard
-  ======================== */
-
   {
     path: 'dashboard',
     component: DashboardComponent,
     title: 'Dashboard | ShujaaCare'
   },
 
-  /* =======================
-     Lessons
-  ======================== */
 
   {
     path: 'lessons',
@@ -51,9 +41,7 @@ export const routes: Routes = [
     title: 'Lessons | ShujaaCare'
   },
 
-  /* =======================
-     Courses
-  ======================== */
+
 
   {
     path: 'courses/:id',
@@ -63,10 +51,6 @@ export const routes: Routes = [
     title: 'Course | ShujaaCare'
   },
 
-  /* =======================
-     Leaderboard
-  ======================== */
-
   {
     path: 'leaderboard',
     loadComponent: () =>
@@ -75,9 +59,6 @@ export const routes: Routes = [
     title: 'Leaderboard | ShujaaCare'
   },
 
-  /* =======================
-     Get My Kit
-  ======================== */
 
   {
     path: 'kit',
@@ -87,10 +68,6 @@ export const routes: Routes = [
     title: 'Get My Kit | ShujaaCare'
   },
 
-  /* =======================
-     Settings
-  ======================== */
-
   {
     path: 'settings',
     loadComponent: () =>
@@ -99,9 +76,6 @@ export const routes: Routes = [
     title: 'Settings | ShujaaCare'
   },
 
-  /* =======================
-     Fallback
-  ======================== */
 
   {
     path: '**',

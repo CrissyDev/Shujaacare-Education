@@ -1,6 +1,6 @@
 <div class="dashboard-wrapper">
 
-  <!-- SIDEBAR -->
+  <!-- ================= SIDEBAR ================= -->
   <aside class="sidebar">
     <div class="brand">
       <img src="assets/shujaacare logo.jpeg" alt="ShujaaCare Logo" />
@@ -11,20 +11,23 @@
       <li [class.active]="activeTab === 'overview'" (click)="activeTab = 'overview'">
         <i class="fa fa-grid"></i> Overview
       </li>
+
       <li [class.active]="activeTab === 'lessons'" (click)="activeTab = 'lessons'">
         <i class="fa fa-book"></i> Lessons
       </li>
+
       <li [class.active]="activeTab === 'leaderboard'" (click)="activeTab = 'leaderboard'">
         <i class="fa fa-trophy"></i> Leaderboard
       </li>
+
       <li [class.active]="activeTab === 'courses'" (click)="activeTab = 'courses'">
         <i class="fa fa-layer-group"></i> Courses
       </li>
+
+      <!-- ✅ GET MY KIT -->
       <li [class.active]="activeTab === 'kit'" (click)="activeTab = 'kit'">
         <i class="fa fa-box"></i> Get My Kit
-      </li><li (click)="showKit()" [class.active]="activeSection === 'kit'">
-          <i class="fa fa-box"></i> Get My Kit
-        </li>
+      </li>
 
       <li [class.active]="activeTab === 'settings'" (click)="activeTab = 'settings'">
         <i class="fa fa-gear"></i> Settings
@@ -32,10 +35,9 @@
     </ul>
   </aside>
 
-  <!-- MAIN -->
+  <!-- ================= MAIN CONTENT ================= -->
   <main class="content">
 
-    <!-- TOP BAR -->
     <header class="topbar">
       <h1>Dashboard</h1>
 
@@ -54,19 +56,20 @@
           <i class="fa fa-bell"></i>
         </div>
 
-        <img class="avatar" src="assets/Gemini_Generated_Image_es3d4fes3d4fes3d.png" alt="User Avatar" />
+        <img
+          class="avatar"
+          src="assets/Gemini_Generated_Image_es3d4fes3d4fes3d.png"
+          alt="User Avatar"
+        />
       </div>
     </header>
 
     <div class="main-grid">
-
-      <!-- CENTER CONTENT -->
       <div>
 
-        <!-- OVERVIEW TAB -->
+        <!-- ================= OVERVIEW ================= -->
         <ng-container *ngIf="activeTab === 'overview'">
 
-          <!-- CONTINUE LEARNING -->
           <section>
             <h2>Continue Learning</h2>
 
@@ -109,7 +112,6 @@
             </div>
           </section>
 
-          <!-- RECOMMENDED COURSES -->
           <section class="spaced">
             <h2>Recommended Courses For You</h2>
 
@@ -129,8 +131,13 @@
 
         </ng-container>
 
-        <!-- OTHER TABS PLACEHOLDER -->
-        <ng-container *ngIf="activeTab !== 'overview'">
+        <!-- ================= GET MY KIT ================= -->
+        <ng-container *ngIf="activeTab === 'kit'">
+          <app-get-my-kit></app-get-my-kit>
+        </ng-container>
+
+        <!-- ================= OTHER TABS ================= -->
+        <ng-container *ngIf="activeTab !== 'overview' && activeTab !== 'kit'">
           <section class="empty-state">
             <i class="fa fa-layer-group"></i>
             <p>{{ activeTab | titlecase }} Section</p>
@@ -140,14 +147,14 @@
 
       </div>
 
-      <!-- RIGHT DETAILS PANEL -->
+      <!-- ================= RIGHT DETAILS PANEL ================= -->
       <aside class="details" *ngIf="showDetails">
         <button class="close" (click)="showDetails = false">
           ← Close Details
         </button>
 
         <div class="profile-card">
-          <img src="assets/Gemini_Generated_Image_es3d4fes3d4fes3d.png" alt="Profile" />
+          <img src="assets/Gemini_Generated_Image_es3d4fes3d4fes3d.png" />
           <h3>{{ displayName }}</h3>
           <p>Health Learning Path</p>
           <span class="points">
