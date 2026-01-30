@@ -1,20 +1,73 @@
 <div class="kit-wrapper">
 
   <!-- Skip -->
-  <div class="skip" (click)="skip()">Skip</div>
+  <div class="skip" *ngIf="currentStep < 3" (click)="skip()">Skip</div>
 
-  <!-- Illustration -->
-  <img
-    class="illustration"
-    [src]="steps[currentStep].image"
-    alt="Get My Kit step"
-  />
+  <!-- IMAGE CONTAINER (IMPORTANT) -->
+  <div class="image-wrapper">
+    <img
+      class="illustration"
+      [src]="steps[currentStep].image"
+      alt="Step illustration"
+    />
+  </div>
 
-  <!-- Content -->
-  <h2>{{ steps[currentStep].title }}</h2>
-  <p>{{ steps[currentStep].description }}</p>
+  <!-- STEP 0 -->
+  <ng-container *ngIf="currentStep === 0">
+    <h2>{{ steps[0].title }}</h2>
+    <p>{{ steps[0].description }}</p>
+  </ng-container>
 
-  <!-- Progress Dots -->
+  <!-- STEP 1 -->
+  <ng-container *ngIf="currentStep === 1">
+    <h2>Choose a Hospital</h2>
+
+    <div class="options">
+      <button
+        *ngFor="let hospital of hospitals"
+        (click)="selectedHospital = hospital"
+        [class.active]="selectedHospital === hospital"
+      >
+        {{ hospital }}
+      </button>
+    </div>
+  </ng-container>
+
+  <!-- STEP 2 -->
+  <ng-container *ngIf="currentStep === 2">
+    <h2>Pickup Details</h2>
+
+    <div class="form">
+      <input
+        type="text"
+        placeholder="Pickup location"
+        [(ngModel)]="formData.location"
+      />
+
+      <input
+        type="tel"
+        placeholder="Phone number"
+        [(ngModel)]="formData.phone"
+      />
+
+      <input
+        type="email"
+        placeholder="Email address"
+        [(ngModel)]="formData.email"
+      />
+    </div>
+  </ng-container>
+
+  <!-- STEP 3 -->
+  <ng-container *ngIf="currentStep === 3">
+    <h2>Delivery in Progress</h2>
+    <p>
+      Your package will be delivered to
+      <strong>{{ formData.location }}</strong>.
+    </p>
+  </ng-container>
+
+  <!-- Dots -->
   <div class="dots">
     <span
       *ngFor="let step of steps; let i = index"
@@ -22,9 +75,15 @@
     ></span>
   </div>
 
-  <!-- Next Button -->
-  <button class="next-btn" (click)="next()">
-    {{ currentStep === steps.length - 1 ? 'Start Ordering' : 'Next' }}
-  </button>
+  <!-- Buttons -->
+  <div class="actions">
+    <button class="back-btn" *ngIf="currentStep > 0" (click)="back()">
+      Back
+    </button>
+
+    <button class="next-btn" (click)="next()">
+      {{ currentStep === steps.length - 1 ? 'Finish' : 'Next' }}
+    </button>
+  </div>
 
 </div>

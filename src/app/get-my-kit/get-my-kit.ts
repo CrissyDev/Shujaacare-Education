@@ -1,54 +1,72 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-get-my-kit',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './get-my-kit.html',
   styleUrls: ['./get-my-kit.css'],
 })
 export class GetMyKitComponent {
-
   currentStep = 0;
+
+  hospitals = [
+    'Nairobi Hospital',
+    'Aga Khan Hospital',
+    'Kenyatta National Hospital',
+    'MP Shah Hospital',
+  ];
+
+  selectedHospital = '';
+
+  formData = {
+    location: '',
+    phone: '',
+    email: '',
+  };
 
   steps = [
     {
       title: 'HPV Self-Testing Kit',
       description:
         'Order a confidential HPV self-testing kit and take the test from the comfort of your home.',
-      image: 'assets/kit-step-1.svg'
+      image: 'assets/AIDS Research-amico.png',
     },
     {
       title: 'Choose a Hospital',
       description:
-        'Select a trusted hospital or clinic near you to process and support your HPV test.',
-      image: 'assets/kit-step-2.svg'
+        'Select a trusted hospital or clinic near you.',
+      image: 'assets/Medical prescription-amico.png',
     },
     {
-      title: 'Order & Track',
+      title: 'Pickup Details',
       description:
-        'Place your order, track delivery, and get guidance on next steps after your results.',
-      image: 'assets/kit-step-3.svg'
-    }
+        'Provide your pickup location and contact details.',
+      image: 'assets/Online Doctor-amico.png',
+    },
+    {
+      title: 'Delivery Confirmed',
+      description:
+        'Your kit is on the way 🚚',
+      image: 'assets/Stem-cell research-amico.png',
+    },
   ];
 
-  constructor(private router: Router) {}
-
-  next(): void {
+  next() {
     if (this.currentStep < this.steps.length - 1) {
       this.currentStep++;
-    } else {
-      this.startOrdering();
     }
   }
 
-  skip(): void {
-    this.startOrdering();
+  back() {
+    if (this.currentStep > 0) {
+      this.currentStep--;
+    }
   }
 
-  startOrdering(): void {
-    this.router.navigate(['/kit/hospitals']);
+  skip() {
+    this.currentStep = this.steps.length - 1;
   }
 }
